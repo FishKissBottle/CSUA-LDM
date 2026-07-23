@@ -1,0 +1,71 @@
+# FY3FS2 dataset configuration
+
+dataset:
+  name: FY3FS2
+
+  rootdir_list_forTrain: "datasets/FY3FS2"
+  split_name_forTrain: "train"
+
+  rootdir_list_forValid: "datasets/FY3FS2"
+  split_name_forValid: "valid"
+
+  rootdir_list_forTest: "datasets/FY3FS2"
+  split_name_forTest: "test"
+
+  rootdir_list_forDraw: "datasets/FY3FS2"
+  split_name_forDraw: "draw"
+
+geometry:
+  input_channels: 4
+  superres_scale: 16
+  lr_crop_size: 24
+
+raw_scaling:
+  # FY3FS2 LR imagery is already normalized into 0-1 during dataset preparation.
+  scale_lr_to_unit_interval: false
+  # Kept at 1.0 because no extra LR scaling is required.
+  lr_scale_divisor: 1.0
+  # FY3FS2 HR imagery is already normalized into 0-1 during dataset preparation.
+  scale_hr_to_unit_interval: false
+  # Kept at 1.0 because no extra HR scaling is required.
+  hr_scale_divisor: 1.0
+
+visualization:
+  vis_band_order: [2, 1, 0]
+
+degradation:
+  # Kernel size for hard HR degradation Gaussian blur.
+  hr_gaussian_kernel: 53
+  # Sigma for hard HR degradation Gaussian blur.
+  hr_gaussian_sigma: 8.5
+  # Downsampling mode used by hard HR degradation.
+  # Options: nearest | bilinear | bicubic | area
+  hr_down_mode: area
+  # Upsampling mode used by hard HR degradation.
+  # Options: nearest | bilinear | bicubic
+  hr_up_mode: bicubic
+  # Whether to apply soft blur to HR supervision targets.
+  soft_hr_gaussian_blur_enabled: false
+  # Kernel size for soft HR target blur.
+  soft_hr_gaussian_kernel: 11
+  # Sigma for soft HR target blur.
+  soft_hr_gaussian_sigma: 1.0
+  # Downsampling mode for soft HR target blur path.
+  # Options: nearest | bilinear | bicubic | area
+  soft_hr_down_mode: area
+  # Upsampling mode for soft HR target blur path.
+  # Options: nearest | bilinear | bicubic
+  soft_hr_up_mode: bicubic
+  # Upsampling mode used to build LR-up inputs.
+  # Options: nearest | bilinear | bicubic
+  lr_up_mode: bicubic
+  # Whether to blur LR inputs before super-resolution.
+  lr_gaussian_blur_enabled: true
+  # Kernel size for LR Gaussian blur.
+  lr_gaussian_kernel: 3
+  # Sigma for LR Gaussian blur.
+  lr_gaussian_sigma: 0.5
+
+normalization:
+  hr_mean: [0.14913801, 0.15380893, 0.18180666, 0.25761273]
+  hr_std:  [0.07746695, 0.08552522, 0.12085284, 0.11275395]

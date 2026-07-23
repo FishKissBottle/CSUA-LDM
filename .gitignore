@@ -1,0 +1,55 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# IDE and local agent state
+.vscode/
+.idea/
+.kimi/
+.agents/
+.codex/
+
+# Local datasets and review-only documentation
+/datasets/
+/GITHUB_UPLOAD_MANIFEST.md
+**/*_中文版.md
+
+# Model weights, optimizer states, and training logs
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.log
+events.out.tfevents.*
+**/runs/
+**/logs/
+**/*_Logs/
+**/tensorboard/
+**/*_Models_SaveFolder/
+**/*_Models_SaveFolders/
+**/*_TrainInfo.txt
+**/*_Train_Info.txt
+**/*_EvaluationInfo.txt
+
+# Bulk inference and evaluation products
+CSUA_LDM_Evaluation_Results/
+assets/_generated/
+assets/_generated_eval*/
+**/*_RGBs/
+**/*_TIFs/
+**/*_Unc_RGBs/
+**/*_Unc_TIFs/
+
+# Raster outputs are excluded by default. Curated examples are explicitly kept.
+*.tif
+*.tiff
+!assets/examples/main_model_samples_ddpm/**/*.tif
+!assets/examples/main_model_samples_ddpm/**/*.tiff
+!assets/examples/main_model_samples_uncertainty_guided/**/*.tif
+!assets/examples/main_model_samples_uncertainty_guided/**/*.tiff

@@ -1,0 +1,120 @@
+# CSUA-LDM main variant configuration
+# Full model: content-style disentanglement + uncertainty-aware diffusion.
+
+vae:
+  losses:
+    # Weight for content-latent KL divergence term.
+    content_kl_weight: 0.0005
+    # Weight for style-latent KL divergence term.
+    style_kl_weight: 0.1
+    # Weight for Gaussian negative log-likelihood reconstruction loss.
+    gnll_weight: 1.0
+    # Weight for L1 reconstruction loss.
+    l1_weight: 1.0
+    # Weight for L2 reconstruction loss.
+    l2_weight: 1.0
+    # Weight for decoder confidence / variance regularization.
+    confidence_weight: 0.01
+  disentanglement:
+    # Number of channels allocated to the content (cross-sensor shared) latent.
+    content_channels: 6
+    # Number of channels allocated to the style (sensor-specific) latent.
+    style_channels: 2
+    # Weight for content-latent cross-sensor alignment loss.
+    content_align_weight: 3.0
+    # Weight for style-latent cross-sensor alignment loss.
+    style_align_weight: 1.0
+    # Weight for content-latent variance regularization (prevents collapse).
+    content_variance_weight: 3.0
+    # Target standard deviation used by the content variance regularizer.
+    content_variance_target_std: 0.5
+    # Dropout rate applied to style latent during VAE training.
+    style_dropout_rate: 0.1
+
+diffusion:
+  conditioning:
+    # Global conditioning scale applied to the LR-up condition.
+    cond_scale: 1.0
+  losses:
+    # Weight for Gaussian NLL loss in the diffusion velocity prediction.
+    gnll_weight: 1.0
+    # Weight for L2 velocity loss.
+    v_l2_weight: 1.0
+    # Weight for L1 velocity loss.
+    v_l1_weight: 1.0
+    # Weight for diffusion confidence / variance regularization.
+    v_confidence_weight: 0.001
+  uncertainty:
+    # Global scale factor for uncertainty terms in the diffusion loss.
+    unc_scale: 0.5
+    # Softening factor applied to the conditional log-variance.
+    unc_cond_logvar_soften_lambda: 1.0
+  sampling:
+    # Number of DDPM reverse steps during inference.
+    steps: 1000
+    # If true, save intermediate reverse-process and latent uncertainty maps.
+    save_reverse_and_latent_uncertainty: false
+    # Scale factor for the stochastic noise added at each reverse step.
+    sampling_noise_scale: 1.0
+    # Style source used when generating draw / report images.
+    # Options: cond_style | hr_style
+    draw_report_mode: hr_style
+  sampling_uncertainty_guidance:
+    # Enable uncertainty-guided stochastic sampling.
+    enabled: false
+    # Exponent controlling the reliability-map sharpness.
+    reliability_alpha: 0.5
+    # Minimum noise-gate multiplier (high-reliability regions).
+    noise_gate_min: 0.8
+    # Maximum noise-gate multiplier (low-reliability regions).
+    noise_gate_max: 1.0
+    # Save pixel-wise reliability maps alongside outputs.
+    save_reliability_maps: true
+  dual_branch:
+    # Enable dual-branch training that mixes LR-up and HR-down-up conditions.
+    enabled: false
+    # Number of epochs before dual-branch probability starts ramping up.
+    warmup_epochs: 30
+    # Number of epochs over which the dual-branch probability ramps to max.
+    ramp_epochs: 60
+    # Maximum probability of using the LR-up branch.
+    max_lr_up_prob: 0.7
+  unet:
+    # Base channel width of the U-Net backbone.
+    ch: 128
+    # Channel multipliers for each U-Net resolution level.
+    ch_mult:
+    - 1
+    - 2
+    - 3
+    - 4
+    # Spatial resolutions at which self-attention blocks are inserted.
+    attn_resolutions:
+    - 12
+    - 24
+    - 48
+    # Dropout probability inside ResNet blocks.
+    dropout: 0.0
+    # Use a learnable convolution when upsampling / downsampling.
+    resamp_with_conv: true
+    # Minimum spatial resolution at which shifted-window attention is used.
+    window_attn_min_resolution: 24
+    # Base per-head dimension for attention blocks.
+    attn_base_head_dim: 32
+    # Upper cap on the total number of attention heads.
+    attn_heads_cap: 12
+
+eval:
+  # Force deterministic evaluation by fixing seeds and cudnn behavior.
+  reproducible_eval: true
+
+image:
+  # Total number of latent channels (content + style).
+  latent_hiddenchannel: 8
+
+latent:
+  # Dataset-specific scaling factor applied to VAE latents before diffusion.
+  scaling_factor_by_dataset:
+    oli2msi: 0.513216
+    sen2naip: 0.891161
+    fy3fs2: 0.623641

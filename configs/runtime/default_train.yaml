@@ -1,0 +1,59 @@
+# Shared training runtime parameters
+# These settings apply across VAE and Diffusion training.
+
+batch_sizes:
+  # Batch size used for training.
+  train: 8
+  # Batch size used for validation.
+  valid: 8
+  # Batch size used for test-set evaluation.
+  test: 8
+  # Batch size used for draw / visualization batches.
+  draw: 3
+
+microbatch_sizes:
+  vae:
+    # VAE microbatch size for gradient accumulation in training.
+    train: 4
+    # VAE microbatch size for validation.
+    valid: 4
+    # VAE microbatch size for draw / visualization.
+    draw: 3
+  diffusion:
+    # Diffusion microbatch size for gradient accumulation in training.
+    train: 4
+    # Diffusion microbatch size for validation.
+    valid: 4
+    # Diffusion microbatch size for draw / visualization.
+    draw: 3
+
+optimization:
+  # Base learning rate for optimizers.
+  learning_rate: 1.0e-4
+  # Lower bound for learning-rate schedulers.
+  min_learning_rate: 1.0e-6
+  # EMA decay applied to model shadow weights.
+  ema_decay: 0.995
+  # Global gradient clipping threshold.
+  grad_clip_max_norm: 3.0
+  # Plateau scheduler patience in epochs.
+  scheduler_patience: 3
+
+training_budget:
+  # Maximum number of training epochs.
+  max_epochs: 300
+  # Maximum number of optimizer iterations.
+  max_iterations: 75000
+  # Extra epochs that force an additional checkpoint save.
+  extra_model_save_epoch_num: [50, 100, 150, 200, 250]
+
+hardware:
+  # Number of DataLoader worker processes.
+  num_workers: 4
+  # Keep DataLoader workers alive across epochs.
+  persistent_workers_enabled: true
+  # device is auto-detected in Python (cuda / cpu)
+
+logging:
+  # Save TIF-format images during visualization / inference.
+  save_tif_images: true

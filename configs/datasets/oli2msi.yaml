@@ -1,0 +1,84 @@
+# OLI2MSI dataset configuration
+# Scale: 3x (LR 128 -> HR 384)
+
+dataset:
+  # Dataset identifier used in logs / artifact names.
+  name: OLI2MSI
+  # Root directory of the training split.
+  rootdir_list_forTrain: "datasets/OLI2MSI"
+  # Split name used to build the training subset.
+  split_name_forTrain: "train"
+  # Root directory of the validation split.
+  rootdir_list_forValid: "datasets/OLI2MSI"
+  # Split name used to build the validation subset.
+  split_name_forValid: "valid"
+  # Root directory of the test split.
+  rootdir_list_forTest: "datasets/OLI2MSI"
+  # Split name used to build the test subset.
+  split_name_forTest: "test"
+  # Root directory of the draw / visualization split.
+  rootdir_list_forDraw: "datasets/OLI2MSI"
+  # Split name used to build the draw subset.
+  split_name_forDraw: "draw"
+
+geometry:
+  # Number of image channels loaded from each sample.
+  input_channels: 3
+  # Super-resolution upscale factor.
+  superres_scale: 3
+  # LR crop size used by this dataset.
+  lr_crop_size: 128
+  # hr_crop_size is derived: lr_crop_size * superres_scale
+
+raw_scaling:
+  # OLI2MSI pairs are already pre-scaled into 0-1 during dataset creation.
+  scale_lr_to_unit_interval: false
+  # Kept at 1.0 because no extra LR scaling is required.
+  lr_scale_divisor: 1.0
+  # OLI2MSI HR imagery is already in 0-1.
+  scale_hr_to_unit_interval: false
+  # Kept at 1.0 because no extra HR scaling is required.
+  hr_scale_divisor: 1.0
+
+visualization:
+  # RGB visualization band order used when saving images.
+  vis_band_order: [0, 1, 2]
+
+degradation:
+  # Kernel size for hard HR degradation Gaussian blur.
+  hr_gaussian_kernel: 9
+  # Sigma for hard HR degradation Gaussian blur.
+  hr_gaussian_sigma: 1.25
+  # Downsampling mode used by hard HR degradation.
+  # Options: nearest | bilinear | bicubic | area
+  hr_down_mode: area
+  # Upsampling mode used by hard HR degradation.
+  # Options: nearest | bilinear | bicubic
+  hr_up_mode: bicubic
+  # Whether to apply soft blur to HR supervision targets.
+  soft_hr_gaussian_blur_enabled: false
+  # Kernel size for soft HR target blur.
+  soft_hr_gaussian_kernel: 11
+  # Sigma for soft HR target blur.
+  soft_hr_gaussian_sigma: 1.0
+  # Downsampling mode for soft HR target blur path.
+  # Options: nearest | bilinear | bicubic | area
+  soft_hr_down_mode: area
+  # Upsampling mode for soft HR target blur path.
+  # Options: nearest | bilinear | bicubic
+  soft_hr_up_mode: bicubic
+  # Upsampling mode used to build LR-up inputs.
+  # Options: nearest | bilinear | bicubic
+  lr_up_mode: bicubic
+  # Whether to blur LR inputs before super-resolution.
+  lr_gaussian_blur_enabled: true
+  # Kernel size for LR Gaussian blur.
+  lr_gaussian_kernel: 3
+  # Sigma for LR Gaussian blur.
+  lr_gaussian_sigma: 0.5
+
+normalization:
+  # HR per-channel mean used for normalization.
+  hr_mean: [0.05615860, 0.08164837, 0.09121144]
+  # HR per-channel std used for normalization.
+  hr_std:  [0.02434012, 0.01768701, 0.01452178]
