@@ -20,6 +20,9 @@ venv/
 /GITHUB_UPLOAD_MANIFEST.md
 **/*_中文版.md
 
+# Manuscript-only figure-generation scripts
+/CSUA_LDM_Paper_Figure_Scripts/
+
 # Model weights, optimizer states, and training logs
 *.pth
 *.pt
