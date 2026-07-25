@@ -4,7 +4,7 @@
 
 CSUA-LDM is a latent diffusion framework for cross-sensor remote sensing image super-resolution (SR). It is designed to restore spatial details while preserving the spectral and radiometric characteristics of the source low-resolution (LR) sensor and estimating spatially resolved reconstruction uncertainty.
 
-> This repository contains research code accompanying the CSUA-LDM manuscript. Dataset and checkpoint download links are not included at present.
+> This repository contains research code accompanying the CSUA-LDM manuscript. Dataset download links are not included at present.
 
 ## Highlights
 
@@ -19,6 +19,10 @@ LR image -> upsampling -> VAE encoding -> content diffusion
                                       \-> style preservation
 restored content + selected style -> VAE decoding -> SR image + uncertainty map
 ```
+
+## Pretrained Weights
+
+Pretrained checkpoints (`.pth`) for the main CSUA-LDM model and its ablation variants are available on [Hugging Face](https://huggingface.co/FishKissBottle/CSUA-LDM).
 
 ## Framework
 
@@ -336,7 +340,7 @@ For a consistent comparison:
 - Fine boundaries and fine-grained textures remain difficult to recover under a large LR/HR resolution gap and severe mixed-pixel effects.
 - Iterative diffusion sampling is computationally expensive.
 - The predicted uncertainty is intended for relative risk localization and has not been fully calibrated as an absolute probability of error.
-- Dataset preparation, pretrained checkpoints, and a standalone single-image deployment interface are not currently bundled with the repository.
+- The datasets and a standalone single-image deployment interface are not currently bundled with the repository; pretrained checkpoints are distributed separately through Hugging Face.
 
 ## Authors
 
@@ -344,7 +348,7 @@ Qinping Yu, Wenpeng Lin, Yiting Ding, Youqi Xu, and Yi Wang
 
 School of Environmental and Geographical Sciences, Shanghai Normal University, Shanghai, China.
 
-Yangtze River Delta Urban Wetland Ecosystem National Field Observation and Research Station, Shanghai, China.
+Yangtze River Delta Urban Wetland Ecosystem National Field Scientific Observation and Research Station, Shanghai, China.
 
 ## Citation
 
