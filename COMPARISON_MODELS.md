@@ -77,9 +77,8 @@ pretraining, followed by perceptual and relativistic adversarial finetuning.
 | DSen2 | Single-stage training | 6 residual blocks, 128 features, residual scale 0.1, bilinear pre-upsampling |
 | EDSR | Single-stage training | 16 residual blocks, 64 features, residual scale 1.0 |
 | RCAN | Single-stage training | 10 residual groups, 20 blocks per group, 64 features, reduction ratio 16 |
-| ESRGAN | Shared generator | 16 RRDB blocks, 48 features, growth channels 24 |
-| ESRGAN | PSNR pretraining | RRDB generator trained from scratch with L1 pixel loss (weight 1.0) |
-| ESRGAN | GAN finetuning | Generator initialized from the locally trained PSNR checkpoint; pixel, VGG19 `conv5_4` perceptual, and relativistic adversarial loss weights of 1.0, 1.0, and 5e-3; perceptual loss restricted to RGB bands; maximum 25 epochs |
+| ESRGAN | PSNR pretraining (training stage 1) | RRDB generator with 16 RRDB blocks, 48 features, and 24 growth channels, trained from scratch with L1 pixel loss (weight 1.0); discriminator not instantiated |
+| ESRGAN | GAN finetuning (training stage 2) | Same RRDB generator initialized from the locally trained stage-1 checkpoint; VGG-style spectral-normalized discriminator with 48 base features trained from scratch; pixel, VGG19 `conv5_4` perceptual, and relativistic adversarial loss weights of 1.0, 1.0, and 5e-3; perceptual loss restricted to RGB bands; maximum 25 epochs |
 | SwinIR | Single-stage training | Image size 64, patch size 1, window size 8, embedding dimension 60, depths `[6, 6, 6, 6]`, heads `[6, 6, 6, 6]`, direct pixel-shuffle upsampling |
 | ResShift | First-stage autoencoder | KL autoencoder with 8 latent channels, downsampling factor 8, down-channel widths `[32, 64, 96, 128]`, and KL weight 5e-4; latent scaling factors of 1.015483, 1.043293, and 1.097812 for OLI2MSI, SEN2NAIP, and FY3FS2 |
 | ResShift | Latent restoration | Base channels 160, channel multipliers `[1, 2, 2, 4]`, and 15-step exponential schedule with power 0.3, terminal eta 0.99, minimum noise level 0.04, and kappa 2.0 |
