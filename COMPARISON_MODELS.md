@@ -81,15 +81,6 @@ pretraining, followed by perceptual and relativistic adversarial finetuning.
 | SwinIR | image size 64, patch size 1, window size 8, embedding dimension 60, depths `[6, 6, 6, 6]`, heads `[6, 6, 6, 6]`, direct pixel-shuffle upsampling |
 | ResShift | 8 latent channels, base channels 160, channel multipliers `[1, 2, 2, 4]`, 15 diffusion steps, first-stage KL weight 5e-4 |
 
-| Method | Train batch / microbatch | Validation batch / microbatch |
-|---|---:|---:|
-| DSen2 | 8 / 4 | 8 / 4 |
-| EDSR | 8 / 4 | 8 / 4 |
-| RCAN | 8 / 2 | 8 / 2 |
-| ESRGAN | 8 / 4 | 8 / 2 |
-| SwinIR | 8 / 2 | 8 / 2 |
-| ResShift | 8 / 4 | 8 / 4 |
-
 ESRGAN uses an L1 pixel-loss weight of 1.0, a perceptual-loss weight of 1.0
 from VGG19 `conv5_4` on RGB bands, and a relativistic adversarial-loss weight
 of 5e-3. GAN finetuning is limited to 25 epochs. ResShift uses an exponential
