@@ -113,7 +113,8 @@ CSUA_LDM_V1.0/
 |-- CSUA_LDM_Evaluate_Common.py
 |-- CSUA_LDM_Quality_Metrics.py
 |-- CSUA_LDM_Uncertainty_Guidance.py
-`-- CSUA_LDM_Utils.py
+|-- CSUA_LDM_Utils.py
+`-- requirement.txt                 # Tested Python dependencies
 ```
 
 Model checkpoints, training logs, and bulk inference/evaluation outputs are
@@ -136,16 +137,22 @@ Core dependencies include:
 - TensorBoard
 - PIQA and LPIPS
 
-A minimal environment can be prepared as follows. Install the PyTorch build appropriate for your CUDA driver separately.
+A tested environment can be prepared as follows. Install the PyTorch build
+appropriate for your CUDA driver before installing the remaining Python
+dependencies.
 
 ```bash
 conda create -n csua-ldm python=3.11
 conda activate csua-ldm
-conda install -c conda-forge gdal
-pip install numpy pyyaml albumentations tqdm pillow matplotlib tensorboard piqa lpips
+conda install -c conda-forge gdal=3.8.4
+pip install torch==2.3.0 torchvision==0.18.0 --index-url https://download.pytorch.org/whl/cu121
+pip install -r requirement.txt
 ```
 
-This repository does not currently provide a fully pinned environment file. GPU training is strongly recommended, particularly for the diffusion stage.
+The versions in `requirement.txt` reproduce the tested CUDA 12.1 environment.
+For a different CUDA version, replace only the PyTorch installation command
+with the corresponding command from the official PyTorch installation guide.
+GPU training is strongly recommended, particularly for the diffusion stage.
 
 ## Dataset Preparation
 

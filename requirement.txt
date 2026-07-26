@@ -1,0 +1,16 @@
+# Tested with Python 3.11.10 and CUDA 12.1.
+# Install the PyTorch build matching your CUDA driver before this file.
+# GDAL 3.8.4 is installed separately through Conda; see README.md.
+
+torch>=2.3,<2.4
+torchvision>=0.18,<0.19
+numpy==1.26.4
+PyYAML==6.0.1
+albumentations==2.0.4
+opencv-python-headless==4.11.0.86
+tqdm==4.67.1
+Pillow==10.2.0
+matplotlib==3.9.0
+tensorboard==2.16.2
+piqa==1.3.2
+lpips==0.1.4
