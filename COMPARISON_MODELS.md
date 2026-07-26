@@ -71,22 +71,18 @@ pretraining, followed by perceptual and relativistic adversarial finetuning.
 
 ## Model Configurations
 
-| Method | Configuration used in the reported experiments |
-|---|---|
-| Bilinear | `align_corners=false`; no trainable parameters |
-| DSen2 | 6 residual blocks, 128 features, residual scale 0.1, bilinear pre-upsampling |
-| EDSR | 16 residual blocks, 64 features, residual scale 1.0 |
-| RCAN | 10 residual groups, 20 blocks per group, 64 features, reduction ratio 16 |
-| ESRGAN | 16 RRDB blocks, 48 features, growth channels 24 |
-| SwinIR | image size 64, patch size 1, window size 8, embedding dimension 60, depths `[6, 6, 6, 6]`, heads `[6, 6, 6, 6]`, direct pixel-shuffle upsampling |
-| ResShift | 8 latent channels, base channels 160, channel multipliers `[1, 2, 2, 4]`, 15 diffusion steps, first-stage KL weight 5e-4 |
-
-ESRGAN uses an L1 pixel-loss weight of 1.0, a perceptual-loss weight of 1.0
-from VGG19 `conv5_4` on RGB bands, and a relativistic adversarial-loss weight
-of 5e-3. GAN finetuning is limited to 25 epochs. ResShift uses an exponential
-15-step schedule with power 0.3, terminal eta 0.99, minimum noise level 0.04,
-and kappa 2.0. Its first-stage latent scaling factors are 1.015483, 1.043293,
-and 1.097812 for OLI2MSI, SEN2NAIP, and FY3FS2, respectively.
+| Method | Stage | Configuration used in the reported experiments |
+|---|---|---|
+| Bilinear | Interpolation | `align_corners=false`; no trainable parameters |
+| DSen2 | Single-stage training | 6 residual blocks, 128 features, residual scale 0.1, bilinear pre-upsampling |
+| EDSR | Single-stage training | 16 residual blocks, 64 features, residual scale 1.0 |
+| RCAN | Single-stage training | 10 residual groups, 20 blocks per group, 64 features, reduction ratio 16 |
+| ESRGAN | Shared generator | 16 RRDB blocks, 48 features, growth channels 24 |
+| ESRGAN | PSNR pretraining | RRDB generator trained from scratch with L1 pixel loss (weight 1.0) |
+| ESRGAN | GAN finetuning | Generator initialized from the locally trained PSNR checkpoint; pixel, VGG19 `conv5_4` perceptual, and relativistic adversarial loss weights of 1.0, 1.0, and 5e-3; perceptual loss restricted to RGB bands; maximum 25 epochs |
+| SwinIR | Single-stage training | Image size 64, patch size 1, window size 8, embedding dimension 60, depths `[6, 6, 6, 6]`, heads `[6, 6, 6, 6]`, direct pixel-shuffle upsampling |
+| ResShift | First-stage autoencoder | KL autoencoder with 8 latent channels, downsampling factor 8, down-channel widths `[32, 64, 96, 128]`, and KL weight 5e-4; latent scaling factors of 1.015483, 1.043293, and 1.097812 for OLI2MSI, SEN2NAIP, and FY3FS2 |
+| ResShift | Latent restoration | Base channels 160, channel multipliers `[1, 2, 2, 4]`, and 15-step exponential schedule with power 0.3, terminal eta 0.99, minimum noise level 0.04, and kappa 2.0 |
 
 ## Reproduction Procedure
 
