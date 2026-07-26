@@ -136,5 +136,8 @@ quality is measured against HR references. Spectral quality is measured after
 mapping each SR output back to the LR domain with the same degradation
 mechanism.
 
-No third-party source implementation or upstream pretrained SR checkpoint is
-distributed in this GitHub repository.
+To comply with upstream licenses and maintain clear licensing boundaries, this
+GitHub repository does not redistribute adapted third-party source code or
+pretrained SR weights released by upstream projects. For further clarification
+about the reproduction settings or adaptation details, contact
+[1000550108@smail.shnu.edu.cn](mailto:1000550108@smail.shnu.edu.cn).
