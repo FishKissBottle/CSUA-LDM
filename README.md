@@ -102,15 +102,13 @@ CSUA_LDM_V1.0/
 |   |-- CSUA_LDM_VAE/
 |   `-- CSUA_LDM_Diffusion/
 |-- Ablation_Models/                  # NoDisent, NoUnc, and Vanilla variants
-|-- Comparison_Models/                # Bilinear and learning-based baselines
 |-- Pre_Training/                     # Statistics and parameter calibration
 |-- configs/
 |   |-- datasets/                     # Dataset paths and normalization statistics
 |   |-- runtime/                      # Shared training configuration
 |   |-- variants/                     # Main and ablation configurations
-|   `-- comparison_models/
-|-- CSUA_LDM_Evaluation_Results/      # Local evaluation outputs (Git-ignored)
-|-- CSUA_LDM_Paper_Figure_Scripts/    # Scripts used to produce manuscript figures
+|   `-- comparison_models/            # Configuration records for manuscript baselines
+|-- CSUA_LDM_Evaluation_Results/      # Local evaluation outputs (not distributed)
 |-- CSUA_LDM_ConfigLoader.py
 |-- CSUA_LDM_Dataset.py
 |-- CSUA_LDM_Evaluate_Common.py
@@ -138,7 +136,6 @@ Core dependencies include:
 - tqdm, Pillow, and Matplotlib
 - TensorBoard
 - PIQA and LPIPS
-- timm (required by the SwinIR and ResShift comparison implementations)
 
 A minimal environment can be prepared as follows. Install the PyTorch build appropriate for your CUDA driver separately.
 
@@ -146,7 +143,7 @@ A minimal environment can be prepared as follows. Install the PyTorch build appr
 conda create -n csua-ldm python=3.11
 conda activate csua-ldm
 conda install -c conda-forge gdal
-pip install numpy pyyaml albumentations tqdm pillow matplotlib tensorboard piqa lpips timm
+pip install numpy pyyaml albumentations tqdm pillow matplotlib tensorboard piqa lpips
 ```
 
 This repository does not currently provide a fully pinned environment file. GPU training is strongly recommended, particularly for the diffusion stage.
@@ -300,7 +297,7 @@ python Main_Model/CSUA_LDM_SpectralEvaluate.py --style-source lr_up --sampling-u
 
 Both evaluation scripts perform paired-split inference before computing metrics and saving results. The `lr_up` style source preserves the spectral and radiometric characteristics of the source LR observation; `hr` is a paired-data control setting for spatial reconstruction; and `hr_down_up` provides an additional degraded-HR control. The repository does not currently provide a standalone deployment interface for arbitrary single LR images.
 
-## Ablation and Comparison Models
+## Ablation Models
 
 The ablation implementations are organized under `Ablation_Models/`:
 
@@ -312,17 +309,7 @@ The ablation implementations are organized under `Ablation_Models/`:
 
 Each variant contains its own config module, VAE/diffusion training scripts, and spatial/spectral evaluation scripts. Variant-specific settings are stored in `configs/variants/`.
 
-The comparison implementations under `Comparison_Models/` include:
-
-- Bilinear interpolation
-- DSen2
-- EDSR
-- RCAN
-- ESRGAN
-- SwinIR
-- ResShift
-
-Each learning-based baseline has its own configuration and training/evaluation entry points. Consult the model directory and `configs/comparison_models/` before execution. Third-party-derived implementations remain subject to their upstream licenses and attribution requirements.
+The comparison methods evaluated in the manuscript are reported for experimental context, but their implementations are not distributed in this repository. The files under `configs/comparison_models/` retain the corresponding experimental settings for reference.
 
 ## Reproducing the Manuscript Protocol
 
@@ -358,4 +345,4 @@ Citation metadata will be added after publication. Until then, please refer to t
 
 ## License
 
-No project-wide open-source license has been specified yet. Unless a license is added, all rights are reserved. Components derived from third-party projects remain governed by their respective licenses.
+The original CSUA-LDM code is released under the [MIT License](LICENSE). Components derived from third-party projects remain governed by the licenses included in their respective directories.

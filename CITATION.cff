@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "CSUA-LDM: A Content-Style Disentangled Latent Diffusion Model With Uncertainty-Aware Guidance for Cross-Sensor Remote Sensing Image Super-Resolution"
+license: MIT
+abstract: >-
+  CSUA-LDM is a latent diffusion framework for cross-sensor remote sensing
+  image super-resolution. A variational autoencoder disentangles each image
+  into a content subspace that represents spatial structure and a style
+  subspace that encodes sensor-specific spectral and radiometric
+  characteristics. Conditional diffusion restores spatial details only in the
+  content subspace, after which the reconstructed content is combined with a
+  selected style representation during decoding to control the sensor style
+  of the output image. The framework also estimates spatially resolved
+  reconstruction uncertainty.
+authors:
+  - family-names: Yu
+    given-names: Qinping
+    orcid: "https://orcid.org/0009-0001-9817-5516"
+    affiliation: "School of Environmental and Geographical Sciences, Shanghai Normal University"
+  - family-names: Lin
+    given-names: Wenpeng
+    affiliation: "Yangtze River Delta Urban Wetland Ecosystem National Field Scientific Observation and Research Station; School of Environmental and Geographical Sciences, Shanghai Normal University"
+  - family-names: Ding
+    given-names: Yiting
+    affiliation: "School of Environmental and Geographical Sciences, Shanghai Normal University"
+  - family-names: Xu
+    given-names: Youqi
+    affiliation: "School of Environmental and Geographical Sciences, Shanghai Normal University"
+  - family-names: Wang
+    given-names: Yi
+    affiliation: "School of Environmental and Geographical Sciences, Shanghai Normal University"
+version: 1.0.0
+date-released: 2026-07-26
+repository-code: "https://github.com/FishKissBottle/CSUA-LDM"
+url: "https://github.com/FishKissBottle/CSUA-LDM"
+keywords:
+  - remote sensing image super-resolution
+  - cross-sensor image reconstruction
+  - latent diffusion model
+  - content-style disentanglement
+  - uncertainty estimation
