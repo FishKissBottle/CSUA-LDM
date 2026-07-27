@@ -1,5 +1,7 @@
 # CSUA-LDM
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21616897.svg)](https://doi.org/10.5281/zenodo.21616897)
+
 **CSUA-LDM: A Content–Style Disentangled Latent Diffusion Model With Uncertainty-Aware Guidance for Cross-Sensor Remote Sensing Image Super-Resolution**
 
 CSUA-LDM is a latent diffusion framework for cross-sensor remote sensing image super-resolution (SR). It is designed to restore spatial details while preserving the spectral and radiometric characteristics of the source low-resolution (LR) sensor and estimating spatially resolved reconstruction uncertainty.
