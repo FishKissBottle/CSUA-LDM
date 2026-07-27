@@ -4,7 +4,7 @@
 
 CSUA-LDM is a latent diffusion framework for cross-sensor remote sensing image super-resolution (SR). It is designed to restore spatial details while preserving the spectral and radiometric characteristics of the source low-resolution (LR) sensor and estimating spatially resolved reconstruction uncertainty.
 
-> This repository contains research code accompanying the CSUA-LDM manuscript. Dataset download links are not included at present.
+> This repository contains research code accompanying the CSUA-LDM manuscript. Original imagery is not distributed with this repository. Source links and split manifests for OLI2MSI and SEN2NAIP are provided in the dataset description. FY3FS2 will be released after the required redistribution approval is granted.
 
 ## Highlights
 
@@ -73,6 +73,8 @@ The manuscript evaluates CSUA-LDM on three paired cross-sensor datasets:
 | SEN2NAIP | Sentinel-2 MSI | NAIP | 10 m / 2.5 m | 4x | 4 |
 | FY3FS2 | FY-3F | Sentinel-2 MSI | 0.0025° / 0.00015625° | 16x | 4 |
 
+For dataset sources, split protocols, and validation/test manifests, see [Dataset Description](Dataset_Description/DATASET_DESCRIPTION.md).
+
 Spatial reconstruction is evaluated with PSNR, SSIM, GMSD, FSIM, and LPIPS. Spectral preservation is evaluated after mapping the SR result back to the LR domain using SAM, ERGAS, and SCC.
 
 ### Results at a Glance
@@ -95,6 +97,7 @@ CSUA_LDM_V1.0/
 |-- assets/
 |   |-- CSUA_LDM_framework.jpg        # Overall model framework
 |   `-- examples/                     # README figures and supplementary outputs
+|-- Dataset_Description/              # Dataset sources and split manifests
 |-- Main_Model/                       # Main CSUA-LDM implementation
 |   |-- CSUA_LDM_Config.py
 |   |-- CSUA_LDM_SpatialEvaluate.py
